@@ -26,12 +26,20 @@ when defined(yourdaywillcomelittleonecommayourdaywillcomedotdotdot):
   const
     cpsish = {nnkYieldStmt, nnkContinueStmt}  ## precede cps calls
 
+proc safeImpl(n: NimNode): NimNode =
+  case n.kind
+  of nnkOpenSymChoice:
+    result = safeImpl n.last
+  else:
+    result = getImpl n
+
 proc isCpsCall(n: NimNode): bool =
   ## true if this node holds a call to a cps procedure
   assert not n.isNil
   if len(n) > 0:
     if n.kind in callish:
-      let p = n[0].getImpl
+      #echo treeRepr(n[0])
+      let p = safeImpl n[0]
       result = p.hasPragma("cpsCall")
 
 proc firstReturn(p: NimNode): NimNode =
@@ -601,7 +609,7 @@ proc normalizingRewrites(n: NimNode): NimNode =
       if n.len == 2:
         n.add newEmptyNode()
       elif n[1].isEmpty:          # add explicit type symbol
-        n[1] = getTypeInst n[2]
+        n[1] = envFriendlyType (getTypeInst n[2])
       result = n
 
   proc rewriteVarLet(n: NimNode): NimNode =
@@ -618,7 +626,10 @@ proc normalizingRewrites(n: NimNode): NimNode =
             result.add:
               newNimNode(n.kind, n).add:
                 rewriteIdentDefs:  # for consistency
-                  newIdentDefs(child[i], getType(value), value)
+                  # bugfix? XXX
+                  #newIdentDefs(child[i], getType(value), value)
+                  newIdentDefs(child[i], envFriendlyType (getTypeInst value),
+                               value)
         of nnkIdentDefs:
           # a new section with a single rewritten identdefs within
           result.add:
@@ -645,13 +656,16 @@ proc normalizingRewrites(n: NimNode): NimNode =
   else:
     nil
 
+proc generics(n: NimNode): NimNode = n[2]
+
 proc cloneProc(n: NimNode): NimNode =
   ## create a copy of a typed proc which satisfies the compiler
   assert n.kind == nnkProcDef
+  #echo treeRepr(n)
   result = nnkProcDef.newTree(
     ident($n.name),
     newEmptyNode(),
-    newEmptyNode(),
+    copyNimTree n.generics,
     n.params,
     newEmptyNode(),
     newEmptyNode(),
@@ -681,9 +695,9 @@ proc cpsXfrmProc*(T: NimNode, n: NimNode): NimNode =
   # and adding proc parameters to the env
   var first = 1 # index of first param to add to locals
   when cpsMutant:
-    env = newEnv(ident"result", types, T)
+    env = newEnv(ident"result", types, T, n.generics)
   else:
-    env = newEnv(ident"continuation", types, T)
+    env = newEnv(ident"continuation", types, T, n.generics)
 
   # assign the return type if necessary
   if not n.params[0].isEmpty:

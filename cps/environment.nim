@@ -30,6 +30,7 @@ type
     store: NimNode                  # where to put typedefs, a stmtlist
     camefrom: Scope                 # the last tailcall (goto)
     seen: HashSet[string]           # count/measure idents/syms by string
+    generics: NimNode
 
     scope: Scope                    # current scope
 
@@ -285,7 +286,7 @@ proc makeType*(e: var Env): NimNode =
   # determine if a symbol clash necessitates pointing to a new parent
   #performReparent(e)
 
-  result = nnkTypeDef.newTree(e.id, newEmptyNode(), e.objectType)
+  result = nnkTypeDef.newTree(e.id, e.generics, e.objectType)
 
 proc first*(e: Env): NimNode = e.c
 proc firstDef*(e: Env): NimNode =
@@ -412,12 +413,13 @@ iterator addIdentDef(e: var Env; kind: NimNodeKind; n: NimNode): Pair =
   else:
     error $n.kind & " is unsupported by cps: \n" & treeRepr(n)
 
-proc newEnv*(c: NimNode; store: var NimNode; via: NimNode): Env =
+proc newEnv*(c: NimNode; store: var NimNode; via: NimNode;
+             generics: NimNode): Env =
   ## the initial version of the environment
   assert not via.isNil
   assert not via.isEmpty
   var c = if c.isNil or c.isEmpty: ident"continuation" else: c
-  result = Env(c: c, store: store, via: via, id: via)
+  result = Env(c: c, store: store, via: via, id: via, generics: generics)
   result.seen = initHashSet[string]()
   result.scope = newScope()
   init result

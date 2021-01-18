@@ -272,3 +272,11 @@ proc errorAst*(s: string): NimNode =
 proc errorAst*(n: NimNode; s = "creepy ast"): NimNode =
   ## embed an error with a message
   errorAst s & ":\n" & treeRepr(n) & "\n"
+
+proc envFriendlyType*(n: NimNode): NimNode =
+  let kind = typeKind n
+  #echo repr(n), " ", kind
+  if kind == ntyAlias:
+    envFriendlyType n.getType
+  else:
+    n
