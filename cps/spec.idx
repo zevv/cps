@@ -1,0 +1,56 @@
+cpsDebug	cps/spec.html#cpsDebug	spec: cpsDebug	
+comments	cps/spec.html#comments	spec: comments	
+cpsLift	cps/spec.html#cpsLift.t	spec: cpsLift()	
+cpsCall	cps/spec.html#cpsCall.t	spec: cpsCall()	
+cpsVoodooCall	cps/spec.html#cpsVoodooCall.t	spec: cpsVoodooCall()	
+cpsCall	cps/spec.html#cpsCall.t,typed	spec: cpsCall(n: typed)	
+cpsPending	cps/spec.html#cpsPending.t	spec: cpsPending()	
+cpsBreak	cps/spec.html#cpsBreak.t,typed	spec: cpsBreak(label: typed = nil)	
+cpsContinue	cps/spec.html#cpsContinue.t	spec: cpsContinue()	
+cpsCont	cps/spec.html#cpsCont.t	spec: cpsCont()	
+cpsRecover	cps/spec.html#cpsRecover.t	spec: cpsRecover()	
+ContinuationProc	cps/spec.html#ContinuationProc	spec: ContinuationProc	
+Continuation	cps/spec.html#Continuation	spec: Continuation	
+NodeFilter	cps/spec.html#NodeFilter	spec: NodeFilter	
+Pair	cps/spec.html#Pair	spec: Pair	
+AstKind	cps/spec.html#AstKind	spec: AstKind	
+Matcher	cps/spec.html#Matcher	spec: Matcher	
+isEmpty	cps/spec.html#isEmpty,NimNode	spec: isEmpty(n: NimNode): bool	
+filter	cps/spec.html#filter,NimNode,NodeFilter	spec: filter(n: NimNode; f: NodeFilter): NimNode	
+desym	cps/spec.html#desym,NimNode	spec: desym(n: NimNode): NimNode	
+resym	cps/spec.html#resym,NimNode,NimNode,NimNode	spec: resym(n: NimNode; sym: NimNode; field: NimNode): NimNode	
+replacedSymsWithIdents	cps/spec.html#replacedSymsWithIdents,NimNode	spec: replacedSymsWithIdents(n: NimNode): NimNode	
+debug	cps/spec.html#debug.t,varargs[untyped]	spec: debug(ignore: varargs[untyped])	
+hasPragma	cps/spec.html#hasPragma,NimNode,static[string]	spec: hasPragma(n: NimNode; s: static[string]): bool	
+filterPragma	cps/spec.html#filterPragma,seq[NimNode],NimNode	spec: filterPragma(ns: seq[NimNode]; liftee: NimNode): NimNode	
+stripPragma	cps/spec.html#stripPragma,NimNode,static[string]	spec: stripPragma(n: NimNode; s: static[string]): NimNode	
+doc	cps/spec.html#doc,string	spec: doc(s: string): NimNode	
+doc	cps/spec.html#doc,NimNode,string	spec: doc(n: NimNode; s: string)	
+hash	cps/spec.html#hash,NimNode	spec: hash(n: NimNode): Hash	
+init	cps/spec.html#init,T,LineInfo	spec: init[T](c: T; l: LineInfo): T	
+definedName	cps/spec.html#definedName,NimNode	spec: definedName(n: NimNode): NimNode	
+stripVar	cps/spec.html#stripVar,NimNode	spec: stripVar(n: NimNode): NimNode	
+letOrVar	cps/spec.html#letOrVar,NimNode	spec: letOrVar(n: NimNode): NimNodeKind	
+isLiftable	cps/spec.html#isLiftable,NimNode	spec: isLiftable(n: NimNode): bool	
+hasLiftableChild	cps/spec.html#hasLiftableChild,NimNode	spec: hasLiftableChild(n: NimNode): bool	
+lineAndFile	cps/spec.html#lineAndFile.t,NimNode	spec: lineAndFile(n: NimNode): string	
+errorAst	cps/spec.html#errorAst,string,NimNode	spec: errorAst(s: string; info: NimNode = nil): NimNode	
+errorAst	cps/spec.html#errorAst,NimNode,string	spec: errorAst(n: NimNode; s = &quot;creepy ast&quot;): NimNode	
+genField	cps/spec.html#genField,string	spec: genField(ident = &quot;&quot;): NimNode	
+normalizingRewrites	cps/spec.html#normalizingRewrites,NimNode	spec: normalizingRewrites(n: NimNode): NimNode	
+workaroundRewrites	cps/spec.html#workaroundRewrites,NimNode	spec: workaroundRewrites(n: NimNode): NimNode	
+replace	cps/spec.html#replace,NimNode,Matcher,NimNode	spec: replace(n: NimNode; match: Matcher; replacement: NimNode): NimNode	
+multiReplace	cps/spec.html#multiReplace,NimNode,varargs[]	spec: multiReplace(n: NimNode; replacements: varargs[(Matcher, NimNode)]): NimNode	
+newCpsPending	cps/spec.html#newCpsPending	spec: newCpsPending(): NimNode	
+isCpsPending	cps/spec.html#isCpsPending,NimNode	spec: isCpsPending(n: NimNode): bool	
+newCpsBreak	cps/spec.html#newCpsBreak,NimNode	spec: newCpsBreak(label: NimNode = newNilLit()): NimNode	
+isCpsBreak	cps/spec.html#isCpsBreak,NimNode	spec: isCpsBreak(n: NimNode): bool	
+newCpsContinue	cps/spec.html#newCpsContinue	spec: newCpsContinue(): NimNode	
+isCpsContinue	cps/spec.html#isCpsContinue,NimNode	spec: isCpsContinue(n: NimNode): bool	
+newCpsRecover	cps/spec.html#newCpsRecover	spec: newCpsRecover(): NimNode	
+isCpsRecover	cps/spec.html#isCpsRecover,NimNode	spec: isCpsRecover(n: NimNode): bool	
+breakLabel	cps/spec.html#breakLabel,NimNode	spec: breakLabel(n: NimNode): NimNode	
+hasDefer	cps/spec.html#hasDefer,NimNode	spec: hasDefer(n: NimNode): bool	
+rewriteDefer	cps/spec.html#rewriteDefer,NimNode	spec: rewriteDefer(n: NimNode): NimNode	
+isCpsCont	cps/spec.html#isCpsCont,NimNode	spec: isCpsCont(n: NimNode): bool	
+getContSym	cps/spec.html#getContSym,NimNode	spec: getContSym(n: NimNode): NimNode	

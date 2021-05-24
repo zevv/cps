@@ -1,0 +1,12 @@
+State	cps.html#State	cps: State	
+state	cps.html#state,Continuation	cps: state(c: Continuation): State	
+running	cps.html#running.t,Continuation	cps: running(c: Continuation): bool	
+finished	cps.html#finished.t,Continuation	cps: finished(c: Continuation): bool	
+trampoline	cps.html#trampoline,Continuation	cps: trampoline(c: Continuation): Continuation	
+dismissed	cps.html#dismissed.t,Continuation	cps: dismissed(c: Continuation): bool	
+cps	cps.html#cps.m,typed,typed	cps: cps(T: typed; n: typed): untyped	
+cpsMagic	cps.html#cpsMagic.m,untyped	cps: cpsMagic(n: untyped): untyped	
+coop	cps.html#coop.t,Continuation	cps: coop(c: Continuation): Continuation	
+trace	cps.html#trace.t,Continuation,string,LineInfo	cps: trace(c: Continuation; fun: string; where: LineInfo)	
+alloc	cps.html#alloc.t,typedesc[T]	cps: alloc[T: Continuation](c: typedesc[T]): T	
+dealloc	cps.html#dealloc.t,typedesc[T],sinkContinuation	cps: dealloc[T: Continuation](t: typedesc[T]; c: sink Continuation)	

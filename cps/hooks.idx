@@ -1,0 +1,9 @@
+Coop	cps/hooks.html#Coop	Hook.Coop	
+Trace	cps/hooks.html#Trace	Hook.Trace	
+Alloc	cps/hooks.html#Alloc	Hook.Alloc	
+Dealloc	cps/hooks.html#Dealloc	Hook.Dealloc	
+Hook	cps/hooks.html#Hook	hooks: Hook	
+introduce	cps/hooks.html#introduce,Hook,NimNode	hooks: introduce(hook: Hook; n: NimNode)	
+introduce	cps/hooks.html#introduce,NimNode,set[Hook]	hooks: introduce(n: NimNode; hooks: set[Hook])	
+hook	cps/hooks.html#hook,Hook,NimNode	hooks: hook(hook: Hook; n: NimNode): NimNode	
+hook	cps/hooks.html#hook,Hook,NimNode,NimNode	hooks: hook(hook: Hook; a: NimNode; b: NimNode): NimNode	
